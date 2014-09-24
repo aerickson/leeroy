@@ -1,4 +1,5 @@
 *.pyc
 virtualenv
 *.egg-info
+*.egg
 dist
