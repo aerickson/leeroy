@@ -130,7 +130,7 @@ def github_notification():
                                               repo_config,
                                               pull_request)
 
-    logging.debug("Trigging builds for %d commits", len(shas))
+    logging.debug("Triggering builds for %d commits", len(shas))
 
     html_url = pull_request["html_url"]
 
