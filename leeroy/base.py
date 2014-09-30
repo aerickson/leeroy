@@ -33,10 +33,11 @@ def _parse_jenkins_json(request):
 @base.route("/notification/jenkins", methods=["POST"])
 def jenkins_notification():
     data = _parse_jenkins_json(request)
+    fallback_url = current_app.config.get("JENKINS_URL")
 
     jenkins_name = data["name"]
     jenkins_number = data["build"]["number"]
-    jenkins_url = data["build"]["full_url"]
+    jenkins_url = data["build"].get("full_url", fallback_url)
     phase = data["build"]["phase"]
 
     logging.debug("Received Jenkins notification for %s %s (%s): %s",
