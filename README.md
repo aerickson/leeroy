@@ -60,8 +60,7 @@ GITHUB_TOKEN = ""
 # JENKINS_USER and JENKINS_PASSWORD assume you're using basic HTTP
 # authentication, not Jenkins's built in auth system.
 JENKINS_URL = "https://jenkins.example.com"
-JENKINS_USER = "hudson"
-JENKINS_PASSWORD = ""
+JENKINS_TOKEN = ""
 
 # Whether a Jenkins job is created for each commit in a pull request,
 # or only one for the last one.
@@ -83,14 +82,12 @@ BUILD_COMMITS = 'NEW'
 #  "github_user": "litl",
 #  "github_password": "password",
 #  "jenkins_url": ""https://jenkins2.example.com"",
-#  "jenkins_user": "litl",
-#  "jenkins_password": "password",
+#  "jenkins_token": "abc123",
 #  "build_commits": "LAST"}
 #
 # github_api_base, github_token, github_user, github_password, jenkins_url,
-# jenkins_user, jenkins_password, and build_commits are optional.  If not
-# present, they'll pull from the toplevel configuration options (GITHUB_USER,
-# etc.)
+# jenkins_token, and build_commits are optional.  If not present, they'll
+# pull from the toplevel configuration options (GITHUB_USER, etc.)
 REPOSITORIES = [
     {"github_repo": "litl/leeroy",
      "jenkins_job_name": "leeroy-github"}
@@ -99,7 +96,8 @@ REPOSITORIES = [
 
 ### Jenkins Configuration
 
-1. Install the Jenkins [git plugin][jgp] and [notification plugin][jnp].
+1. Install the Jenkins [git plugin][jgp], [notification plugin][jnp], 
+and [jbtrp][build token root plugin].
 
 2. Create a Jenkins job.  Under "Job Notifications", set a Notification
 Endpoint with protocol HTTP and the URL pointing to `/notification/jenkins`
@@ -114,10 +112,14 @@ and `master` for `GIT_SHA1` are a good idea, but not required.
 4. Under "Source Code Management", select Git.  Set the "Repository URL" to
 `git@github.com:$GIT_HEAD_REPO.git`.  Set "Branch Specifier" to `$GIT_SHA1`.
 
-5. Configure the rest of the job however you would otherwise.
+5. Under "Build Triggers", select "Trigger builds remotely". Set the 
+authentication token to something. Record in your config.
+
+6. Configure the rest of the job however you would otherwise.
 
 [jgp]: https://wiki.jenkins-ci.org/display/JENKINS/Git+Plugin
 [jnp]: https://wiki.jenkins-ci.org/display/JENKINS/Notification+Plugin
+[jbtrp]: https://wiki.jenkins-ci.org/display/JENKINS/Build+Token+Root+Plugin
 
 ## Running Leeroy
 
