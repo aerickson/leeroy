@@ -97,7 +97,7 @@ REPOSITORIES = [
 ### Jenkins Configuration
 
 1. Install the Jenkins [git plugin][jgp], [notification plugin][jnp], 
-and [jbtrp][build token root plugin].
+and [build token root plugin][jbtrp].
 
 2. Create a Jenkins job.  Under "Job Notifications", set a Notification
 Endpoint with protocol HTTP and the URL pointing to `/notification/jenkins`
