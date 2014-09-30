@@ -20,6 +20,10 @@ def schedule_build(app, repo_config, head_repo_name, sha, html_url):
     job_name = repo_config["jenkins_job_name"]
     token = repo_config.get("jenkins_token", app.config["JENKINS_TOKEN"])
 
+    # TODO: if token == "", then use non-'build token root plugin' url?
+    # - currently broken for people who use no auth
+    # - could also support basic auth still...
+
     url = get_jenkins_url(app, repo_config) + \
         build_path.format(job_name=job_name,
                           git_base_repo=base_repo_name,
